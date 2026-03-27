@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "functions": {
+    "api/**/*.js": {
+      "maxDuration": 30
+    }
+  },
+  "rewrites": [
+    { "source": "/fetch-url", "destination": "/api/fetch-url" },
+    { "source": "/health", "destination": "/api/health" },
+    { "source": "/remove-bg", "destination": "/api/remove-bg" },
+    { "source": "/stability", "destination": "/api/stability" },
+    { "source": "/inpaint", "destination": "/api/inpaint" },
+    { "source": "/fashn/run", "destination": "/api/fashn/run" },
+    { "source": "/fashn/status/:id", "destination": "/api/fashn/status/:id" }
+  ]
+}
