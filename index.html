@@ -477,7 +477,7 @@ var PROXY_HOST = (function() {
   var host = window.location.hostname;
   var proto = window.location.protocol;
   // Vercel / production: rewrites handle /remove-bg → /api/remove-bg etc, so use same origin
-  if (proto === 'https:' && host && host.includes('.') && !host.includes('file')) return '';
+  if (proto === 'https:' && host && host.includes('.') && !host.includes('file')) return '/api';
   // Local HTTPS proxy
   if (proto === 'https:' && host && host !== '' && !host.includes('file')) {
     return 'https://' + host + ':3457';
