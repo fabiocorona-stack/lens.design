@@ -1,4 +1,4 @@
-export const config = { api: { bodyParser: { sizeLimit: '10mb' }, responseLimit: '10mb' } };
+export const config = { api: { bodyParser: { sizeLimit: '4mb' } } };
 
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
