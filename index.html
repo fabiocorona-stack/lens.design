@@ -531,8 +531,9 @@ function compressImage(dataURL, maxBytes) {
     var img = new Image();
     img.onload = function() {
       var w = img.width, h = img.height;
-      if (w > 2048 || h > 2048) {
-        var scale = Math.min(2048 / w, 2048 / h);
+      var maxDim = 1200;
+      if (w > maxDim || h > maxDim) {
+        var scale = Math.min(maxDim / w, maxDim / h);
         w = Math.floor(w * scale);
         h = Math.floor(h * scale);
       }
@@ -788,13 +789,16 @@ function showError(msg) {
 
 function handleFile(file) {
   if (!file || !file.type.startsWith('image/')) return;
-  currentMediaType = file.type || 'image/jpeg';
   var reader = new FileReader();
   reader.onload = function(e) {
-    currentImage = e.target.result;
-    currentBase64 = currentImage.split(',')[1];
-    document.getElementById('preview-img').src = currentImage;
-    show('screen-preview');
+    // Compress to max 1MB JPEG, max 1200px wide — keeps API calls fast and lean
+    compressImage(e.target.result, 1000000).then(function(compressed) {
+      currentImage = compressed;
+      currentBase64 = compressed.split(',')[1];
+      currentMediaType = 'image/jpeg';
+      document.getElementById('preview-img').src = currentImage;
+      show('screen-preview');
+    });
   };
   reader.readAsDataURL(file);
 }
